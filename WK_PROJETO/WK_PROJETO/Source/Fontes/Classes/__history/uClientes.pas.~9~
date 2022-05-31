@@ -1,0 +1,209 @@
+unit uClientes;
+
+interface
+
+uses DB, SysUtils, uConexao, FireDAC.Comp.Client;
+
+type
+  TClientes = class
+  private
+    FCodigo: integer;
+    FNome: string;
+    FCidade: string;
+    FUF: string;
+    FQry: TFDQuery;
+    FDs: TDataSource;
+    Conn : TConexao;
+    FDsPesquisa: tDataSource;
+    FQryPesquisa: TFDQuery;
+    procedure SetCodigo(const Value: integer);
+    procedure SetNome(const Value: string);
+    procedure SetCidade(const Value: string);
+    procedure SetUF(const Value: string);
+    procedure SetDs(const Value: TDataSource);
+    procedure SetQry(const Value: TFDQuery);
+    procedure SetDsPesquisa(const Value: tDataSource);
+    procedure SetQryPesquisa(const Value: TFDQuery);
+
+  published
+  public
+    constructor Create(Conexao: TConexao); // utiliza a classe de conexão
+    destructor Destroy; override;
+    // Propriedades
+    property Codigo : Integer read FCodigo write SetCodigo;
+    property Nome : string read FNome write SetNome;
+    property Cidade : string read FCidade write SetCidade;
+    property UF : string read FUF write SetUF;
+
+    // Componentes
+    property Qry : TFDQuery read FQry write SetQry;
+    property QryPesquisa : TFDQuery read FQryPesquisa write SetQryPesquisa;
+    property Ds : TDataSource read FDs write SetDs;
+    property DsPesquisa : tDataSource read FDsPesquisa write SetDsPesquisa;
+    // Métodos
+    function RetornaClientes(Codigo: Integer; Nome,OrderBy: String):Boolean;
+    function Inserir : boolean;
+    function Alterar : boolean;
+    function Deletar(chave: integer) : boolean;
+end;
+
+implementation { TClientes }
+
+function TClientes.Alterar: boolean;
+begin
+{  with Qry do
+  begin
+    Close;
+    SQL.Text :=    ' Update Clientes Set '+
+                ' Nome = :Nome,'+
+                ' Endereco = :Endereco,'+
+                ' Telefones = :Telefones,'+
+                ' Obs = :Obs'+
+                ' Where '+
+                ' id = :id';
+    // Observe a utilização dos Fileds (FChave,Fnome...etc...)
+    Params.ParamByName('id').Value           := FChave;
+    Params.ParamByName('Nome').Value         := Fnome;
+    Params.ParamByName('Endereco').Value     := Fendereco;
+    Params.ParamByName('Telefones').Value    := FTelefone;
+    Params.ParamByName('Obs').Value          := FObs;    try
+    ExecSQL;       Result := true;
+    except       Result := False;
+    end;
+  end;}
+end;
+
+constructor TClientes.Create(Conexao: TConexao);
+begin
+  {No create é passada a conection das Qrys }
+  Conn            := Conexao;
+  //Qry             := TFDQuery.Create(nil);
+  //Ds              := TDataSource.Create(nil);
+  QryPesquisa     := TFDQuery.Create(nil);
+  DsPesquisa      := TDataSource.Create(nil);
+  //Qry.Connection  := Conn.Conexao;
+  QryPesquisa.Connection := Conn.Conexao;
+  DsPesquisa.DataSet := QryPesquisa;
+  //Ds.DataSet         := Qry;
+
+end;
+
+function TClientes.Deletar(Chave: integer): boolean;
+begin
+  {with Qry do
+  begin
+    Close;
+    SQL.Text  := ' delete from Clientes'+
+                 ' where id = :Chave';
+    Parameters.ParamByName('Chave').Value := Chave;
+    try
+      ExecSQL;
+      Result := True;
+    except
+      Result := False;
+    end;
+  end;}
+end;
+
+destructor TClientes.Destroy;
+begin
+  FreeAndNil(Conn);
+  inherited;
+end;
+
+function TClientes.Inserir: boolean;
+begin
+  {with Qry  do
+  begin
+    Close;
+    Sql.text := ' Insert into Clientes'+
+                ' (Nome, Endereco, Telefones, Obs)'+
+                ' Values '+
+                ' (:Nome, :Endereco, :Telefones, :Obs)';
+    // Observe a utilização dos Fileds (FChave,Fnome...etc...)
+    Parameters.ParamByName('Nome').Value           := Fnome;
+    Parameters.ParamByName('Endereco').Value       := Fendereco;
+    Parameters.ParamByName('Telefones').Value      := FTelefone;
+    Parameters.ParamByName('Obs').Value            := FObs;
+    try
+      ExecSQL;
+      result := true;
+    except
+      result := false;
+    end;
+  end;  }
+end;
+
+function TClientes.RetornaClientes(Codigo: Integer; Nome,OrderBy): Boolean;
+begin
+  Nome := '%'+Nome+'%';
+  with QryPesquisa do
+  begin
+    Close;
+    SQL.Text := 'SELECT * FROM WK_BD.TB_CLIENTES WHERE 1=1 ';
+
+    if Codigo > 0 then
+    begin
+      SQL.Add(' AND CODIGO = :CODIGO');
+      Params.ParamByName('CODIGO').Value := Codigo;
+    end;
+
+    if Nome <> '' then
+      SQL.Add(' AND NOME LIKE ' + QuotedStr(Nome));
+
+    if OrderBy <> '' then
+      sql.add(' ORDER BY '+OrderBy);
+
+    try
+      Open;
+      if not Eof then
+        Result := True
+      else
+        Result := False;
+    except
+       Result := False;
+    end;
+  end;
+end;
+
+procedure TClientes.SetCodigo(const Value: integer);
+begin
+  FCodigo := Value;
+end;
+
+procedure TClientes.SetDs(const Value: TDataSource);
+begin
+  FDs := Value;
+end;
+
+procedure TClientes.SetDsPesquisa(const Value: tDataSource);
+begin
+  FDsPesquisa := Value;
+end;
+
+procedure TClientes.SetCidade(const Value: string);
+begin
+  FCidade := Value;
+end;
+
+procedure TClientes.SetNome(const Value: string);
+begin
+  FNome := Value;
+end;
+
+procedure TClientes.SetUF(const Value: string);
+begin
+  FUF := Value;
+end;
+
+procedure TClientes.SetQry(const Value: TFDQuery);
+begin
+  FQry := Value;
+end;
+
+procedure TClientes.SetQryPesquisa(const Value: TFDQuery);
+begin
+  FQryPesquisa := Value;
+end;
+
+end.

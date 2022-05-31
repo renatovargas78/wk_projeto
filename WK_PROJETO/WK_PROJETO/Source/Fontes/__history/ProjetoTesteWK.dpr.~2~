@@ -1,0 +1,16 @@
+program ProjetoTesteWK;
+
+uses
+  Vcl.Forms,
+  uProjetoTeste in 'uProjetoTeste.pas' {Form1},
+  uConexao in 'Classes\uConexao.pas',
+  uClientes in 'Classes\uClientes.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

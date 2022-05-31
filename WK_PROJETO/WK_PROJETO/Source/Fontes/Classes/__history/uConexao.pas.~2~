@@ -1,0 +1,29 @@
+unit uConexao;
+
+interface
+
+uses FireDAC.Comp.Client, FireDAC.Phys.MySQL;
+
+type
+  TConexao = class
+  public
+    Conexao : TFDConnection;
+    MySQLDriver: TFDPhysMySQLDriverLink;
+  constructor Create;
+end;
+implementation { TConexao }
+
+constructor TConexao.Create;
+begin
+  MySQLDriver := TFDPhysMySQLDriverLink.Create(nil);
+  MySQLDriver.VendorLib := 'C:\WK_PROJETO\DLL';
+
+  Conexao := TFDConnection.Create(nil);
+  Conexao.LoginPrompt := False;
+  Conexao.Name := 'FDConexao';
+  Conexao.Params.Database := 'WK_BD';
+  Conexao.Params.UserName := 'root';
+  Conexao.Params.DriverID := 'MySQL';
+  Conexao.Connected := true;
+end;
+end.

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2022/04/13 07:46:41.000.899,=C:\Users\renat\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/05/27 09:54:26.091,=C:\Users\renat\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/05/30 23:21:06.421,=C:\Users\renat\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2022/05/30 23:21:39.645,C:\WK_PROJETO\Source\Fontes\uProjetoTeste.pas=C:\Users\renat\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/05/30 23:21:39.645,C:\WK_PROJETO\Source\Fontes\uProjetoTeste.dfm=C:\Users\renat\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2022/05/30 23:21:55.344,C:\WK_PROJETO\Source\Fontes\Classes\uConexao.pas=C:\Users\renat\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2022/05/30 23:22:09.735,C:\WK_PROJETO\Source\Fontes\ProjetoTesteWK.dproj=C:\Users\renat\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2022/05/30 23:41:09.279,=C:\WK_PROJETO\Source\Fontes\Unit1.pas</Transaction>
+    <Transaction>2022/05/30 23:50:16.490,C:\WK_PROJETO\Source\Fontes\Classes\uClientes.pas=C:\WK_PROJETO\Source\Fontes\Unit1.pas</Transaction>
+    <Transaction>2022/05/31 02:14:09.819,=C:\WK_PROJETO\Source\Fontes\Unit1.pas</Transaction>
+    <Transaction>2022/05/31 02:14:38.012,C:\WK_PROJETO\Source\Fontes\Classes\uFuncoes.pas=C:\WK_PROJETO\Source\Fontes\Unit1.pas</Transaction>
+    <Transaction>2022/05/31 02:29:54.504,=C:\WK_PROJETO\Source\Fontes\Classes\uProdutos.pas</Transaction>
+    <Transaction>2022/05/31 08:17:43.714,=C:\WK_PROJETO\Source\Fontes\Classes\uProdutosPedidos.pas</Transaction>
+  </Transactions>
+</BorlandProject>
